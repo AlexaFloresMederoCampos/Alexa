@@ -7,7 +7,25 @@
     <title>Traductor de código morse</title>
 </head>
 <body>
-    <?php
-    ?>
+    <form action="MorseResp.php" method="POST">
+        <fieldset style="width: 900px">
+            <legend><h1>Traductor de código morse</h1></legend>
+            <label for="traduccion"><h3>Seleccione su opcion de traduccion</h3>
+                <br>
+                <select name="traduccion">
+                    <option value="espmor">Del español a morse</option>
+                    <option value="moresp">Del morse al español</option>
+                </select>
+            </label>   
+            <label for="texto"><h3>Inserte el texto</h3>
+                <br>
+                <textarea name="texto" rows="12" cols="40"></textarea>
+                <br> 
+            </label>
+
+            <button type="submit">Traducir</button>
+        </fieldset>
+
+    </form>
 </body>
 </html>
