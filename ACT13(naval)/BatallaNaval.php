@@ -28,6 +28,7 @@
                   echo $corY;
       
              }
+              
              echo "<br>";
             for($i = 1; $i <= $vidas; $i++){
             
@@ -85,13 +86,7 @@
             echo "</label>";
             echo "<button type='submit' name='disparo'>Dispara</button>";
 
-            // checa si existe post
-            if(isset($_POST["coordX"]) && isset($_POST["coordY"]))
-            {
-                $corX=$_POST["coordX"];
-                $corY=$_POST["coordY"];
-    
-            }
+           
            
             
                   
