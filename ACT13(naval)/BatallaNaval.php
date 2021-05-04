@@ -10,10 +10,29 @@
     <form action="./BatallaNaval.php" method="POST">
         <?php
             echo "<h1>Batalla Naval</h1>";
+            echo "<br><br>";
+            echo "<h2>Vidas:</h2>";
+
             $fila=13;
             $tamc=40;
             $i=0;
             $j=0;
+            $vidas=8;
+
+            // checa si existe post
+             if(isset($_POST["coordX"]) && isset($_POST["coordY"]))
+             {
+                  $corX=$_POST["coordX"];
+                  $corY=$_POST["coordY"];
+                  echo $corX;
+                  echo $corY;
+      
+             }
+             echo "<br>";
+            for($i = 1; $i <= $vidas; $i++){
+            
+                echo "<img src='https://e1.pngegg.com/pngimages/929/425/png-clipart-minecon-1-minecraft-minecraft-raw-meat.png' width='20px' height='20px'>";
+            }
 
             $coordenadasX= [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
             $coordenadasY= [" ","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
@@ -43,7 +62,14 @@
                     for($j=0; $j<$fila; $j++)
                     {                        
                         echo "<td>";
-                            echo '<img src="./agua.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">';  
+                        // mis x son mis y y mis y son mis x
+                            if($coordenadasX[$j+1]==$corX && $coordenadasY[$i+1]==$corY)
+                            {
+                                echo '<img src="./fuego.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">'; 
+                            }
+                            else
+                                echo '<img src="./agua.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">'; 
+
                         echo "</td>";
                     }
                     echo "</tr>";
@@ -57,9 +83,18 @@
             echo "<label for='coordY'>";
                 echo "Coordenada en Y (numero) : <input type='text' name='coordY' required>";
             echo "</label>";
-
             echo "<button type='submit' name='disparo'>Dispara</button>";
-        
+
+            // checa si existe post
+            if(isset($_POST["coordX"]) && isset($_POST["coordY"]))
+            {
+                $corX=$_POST["coordX"];
+                $corY=$_POST["coordY"];
+    
+            }
+           
+            
+                  
             
         ?>
     </form>
