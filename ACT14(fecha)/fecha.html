@@ -19,14 +19,65 @@
                         <br><br>
                         <label for="paises">Elije los países que quieres consultar
                             <br><br> 
-                            <input type="checkbox" name="paises[]" required>
+                            <table>
+                                <tr>
+                                    <td>
+                                        Nueva York: <input type="checkbox" name="NY" value="NY">
+                                    </td>
+                                    <td>
+                                        Sao Paulo: <input type="checkbox" name="SaoP" value="SaoP">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Madrid: <input type="checkbox" name="Madr" value="Madr">
+                                    </td>
+                                    <td>
+                                        Paris: <input type="checkbox" name="Paris" value="Paris">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Roma: <input type="checkbox" name="Roma" value="Roma">                                    </td>
+                                    <td>
+                                        Atenas: <input type="checkbox" name="Atenas" value="Atenas">
+                                    </td>
+                                </tr><tr>
+                                    <td>
+                                        Beijing: <input type="checkbox" name="Beijing" value="Beijing">
+                                    </td>
+                                    <td>
+                                        Tokio: <input type="checkbox" name="Tokio" value="Tokio">
+                                    </td>
+                                </tr>                               
+                            </table>
+                            <br>
                         </label>
-
+                        <button type="submit" name="reloj">Consultar</button>
                     </fieldset>
 
                 </td>
                 <td>
+                    <fieldset style="width: 500px height: 600px">
+                        <legend>Calcula cumpleaños</legend>
+                        <label for="cumple">
+                            Ingrese hora (CDMX) <input type="date" name="cumple" required>
+                        </label>
+                        <br><br>
+                        <label for="paises">¿Que quieres consultar?
+                            <br><br> 
+                            Días para el próximo cumpleaños: <input type="checkbox" name="dias" value="dias">
+                            <br>
+                            Horas para el próximo cumpleaños: <input type="checkbox" name="horas" value="horas">
+                            <br>
+                            Minutos para el próximo cumpleaños: <input type="checkbox" name="minutos" value="minutos">
+                            <br>
+                            ¿Será en fin de semana?: <input type="checkbox" name="finde" value="finde">
+                            <br>
 
+                        </label>
+                        <button type="submit" name="cumpleanos">Calcular</button>
+                    </fieldset>
                 </td>
             </tr>
         </table>
