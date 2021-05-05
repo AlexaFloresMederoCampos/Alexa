@@ -18,6 +18,7 @@
             $i=0;
             $j=0;
             $vidas=8;
+            $historial=[];
 
             // checa si existe post
              if(isset($_POST["coordX"]) && isset($_POST["coordY"]))
@@ -66,7 +67,13 @@
                         // mis x son mis y y mis y son mis x
                             if($coordenadasX[$j+1]==$corX && $coordenadasY[$i+1]==$corY)
                             {
-                                echo '<img src="./fuego.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">'; 
+                                if($corX=="B" && $corY == 4)
+                                {
+                                    echo '<img src="./fuego.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">';
+                                }
+                                else
+                                echo '<img src="./incorrecto.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">';
+                                
                             }
                             else
                                 echo '<img src="./agua.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">'; 
