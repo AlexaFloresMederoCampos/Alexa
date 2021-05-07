@@ -4,56 +4,128 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batalla Naval</title>
+    <title>---Batalla Naval---</title>
 </head>
 <body>
     
         <?php
-            
             $fila=13;
             $tamc=40;
             $i=0;
             $j=0;
             $k=1;
-            $vidas=8;
+            $vidas=8; 
             $randomX;
             $randomY;
- 
+            $barcoMedioY="";
+            $barcoMedioX="";
+            $newBarcoY="";
+            $newBarcoX="";
+           
+            if(isset($_POST["disparo"]))
+            {
+                $coordenadasX=$_POST["coordX"];
+                $coordenadasY=$_POST["coordY"];
+                $Unir= $coordenadasX . $coordenadasY;  
+                $r=$_POST['c'];
+                $c=$r . $Unir . ",";
+            
+                switch($coordenadasX){
+                    case 'A':
+                        $coordenadasX=1;
+                    break;
+                    case 'B':
+                        $coordenadasX=2;
+                    break;
+                    case 'C':
+                        $coordenadasX=3;
+                    break;
+                    case 'D':
+                        $coordenadasX=4;
+                    break;
+                    case 'E':
+                        $coordenadasX=5;
+                    break;
+                    case 'F':
+                        $coordenadasX=6;
+                    break;
+                    case 'G':
+                        $coordenadasX=7;
+                    break;
+                    case 'H':
+                        $coordenadasX=8;
+                    break;
+                    case 'I':
+                        $coordenadasX=9;
+                    break;
+                    case 'J':
+                        $coordenadasX=10;
+                    break;
+                    case 'K':
+                        $coordenadasX=11;
+                    break;
+                    case 'L':
+                        $coordenadasX=12;
+                    break;
+                    case 'M':
+                        $coordenadasX=13;
+                    break;
+                    default:
+                    echo "indice invalido";
+                    break;
+                }
+            }
 
-            echo "<h1>Batalla Naval</h1>";
-            echo "<br><br>";
-            echo "<h2>Vidas:</h2>";
-
-
+            echo "<h1>Batalla Naval</h1>"; 
             echo "<br>";
+            echo "<h2>Vidas:</h2>";
             for($i = 1; $i <= $vidas; $i++){
             
                 echo "<img src='https://e1.pngegg.com/pngimages/929/425/png-clipart-minecon-1-minecraft-minecraft-raw-meat.png' width='20px' height='20px'>";
             }
+           // echo $randomY;
+            echo "<br>";
+            //echo $randomX;
+            echo "<br>";
+            echo "<strong>" . "Historial de disparos:" . "<strong>" . "<br>";
+            if(isset($_POST['c']))
+            {
+                echo $c. ","; 
+            }else{
+                $c="";
+                echo "No has disparado aún";
+            }
+            //echo "<br>" ." <br>". "Coordenada actual:";
 
             $coordenadasX= [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
             $coordenadasY= [" ","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
+           
+            $barcoX=$coordenadasX; //[$randomX];
+            $barcoY=$coordenadasY; //[$randomY];
 
-            
-
-            
-            // checa si existe post de coordenadas
-             if(isset($_POST["coordX"]) && isset($_POST["coordY"]) && isset($_POST["disparo"]))
-             {     
+           
+            // checa si existe post
+             if(isset($_POST["coordX"]) && isset($_POST["coordY"]))
+             {
                     $barcoX=$_POST['barcoX'];
                     $barcoY=$_POST['barcoY'];
                     $corX=$_POST["coordX"];
                     $corY=$_POST["coordY"];
-                    echo $barcoX;
+                    $randOrienta=$_POST["orientacion"];
+                    $newBarcoX=$_POST["newbarcoX"];
+                    $newBarcoY=$_POST["newbarcoY"];
+                    $barcoMedioX=$_POST["barcoMedioX"];
+                    $barcoMedioY=$_POST["barcoMedioY"];
+
+                    /*echo $barcoX;
                     echo "<br>";
                     echo $barcoY;
                     $coordenadas="$corX$corY";
                     echo "<br>";
-                    echo "C: " .$coordenadas;
-        
-                    //tabla cuando ya entran los datos
-                    echo "<table border=1>";
+                    echo "C: " .$coordenadas;*/
 
+                    //tabla cuando ya entran los datos
+                echo "<table border=1>";
                     // tabla vacía
                     echo "<tr>";
                     // para fila de coordenadas en x
@@ -77,18 +149,22 @@
                         for($j=0; $j<$fila; $j++)
                         {                        
                             echo "<td>";
-                            // mis x son mis y y mis y son mis x 
+                            // mis x son mis y y mis y son mis x    
                                 if($coordenadasX[$j+1]==$corX && $coordenadasY[$i+1]==$corY)
                                 {
+                                    //coordenadas del barco
+                                    //echo $barcoMedioX . "<br>" . $barcoMedioY . "<br>" . $newBarcoX . "<br>" . $newBarcoY . "<br>";                          
                                     
-                                    if($corX == $barcoX && $corY == $barcoY)
+                                    if(($corX== $barcoX && $corY == $barcoY) || ($corX == $barcoMedioX && $corY == $barcoMedioY) || ($corX == $newBarcoX && $corY == $newBarcoY))
                                     {
                                         echo '<img src="./fuego.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">';
-                                        //aqui array push, llenar arreglos, comparar
+                                    
                                     }
                                     else
                                     {
                                         echo '<img src="./incorrecto.jpeg" width="'.$tamc.'" height="'.$tamc.'" alt="Mi blanco">';
+                                        //$vidas--;
+                                        //echo $vidas;
                                     }
                                     
                                 }
@@ -99,20 +175,74 @@
                         }
                         echo "</tr>";
                     }
+                    //echo $randOrienta;
                 echo "</table>";
              }
              
              else
              {
-                $randomX=rand(1, 13);
-                $randomY=rand(1, 13);
+                //referencias
+               /* $coordenadasX= [" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
+                $coordenadasY= [" ","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];*/
+           
+                //coordenadas random
+                $randomX=rand(1, $fila);
+                $randomY=rand(1, $fila);
+                // 1 arriba, 2 abajo, 3 derecha y 4 izquierda
+                $randOrienta=rand(1,4);
+                //echo $randOrienta;
+                echo "<br>";
+                //coordenadas random asignadas
                 $barcoX=$coordenadasX[$randomX];
                 $barcoY=$coordenadasY[$randomY];
+                $var=array_search($barcoX, $coordenadasX);
+                $var1=array_search($barcoY, $coordenadasY);
+                //barcos (y si random sale 3 o 4) (x si random sale 1 o 2)
+                $newBarcoY=$var1;
+                $newBarcoX=$var;
+                $barcoMedioY=$var1;
+                $barcoMedioX=$var;
 
-                echo "X: " .$barcoX;
-                echo "<br>";
-                echo "Y: " .$barcoY;
-                echo "<br>";
+                if($randOrienta == 1 && $newBarcoY >= 3) /*&& $barcoMedioY-2 < intval($coordenadasY[1]))*/
+                {
+                        $newBarcoY-=2;
+                        $barcoMedioY-=1;
+
+                }
+                elseif($randOrienta == 2 && $newBarcoY <= 11)
+                {
+                        $newBarcoY+=2;
+                        $barcoMedioY+=1;
+
+                }
+                elseif($randOrienta == 3 && $newBarcoX <= 11)
+                {
+                        $newBarcoX+=2;
+                        $barcoMedioX+=1;
+                        
+                }
+                else/*($randOrienta == 4 && $barcoX-=2 < $coordenadasX[1])*/
+                {
+                        $newBarcoX-=2;
+                        $barcoMedioX-=1;
+
+                }
+
+                    // variables que te dicen donde estan las coordenadas de los barcos
+                    /*echo $var . "<br>";
+                    echo $newBarcoX . "<br>";
+                    echo $barcoMedioX . "<br>";
+                    echo $var1 . "<br>";
+                    echo $barcoMedioY;
+                    echo $newBarcoY . "<br>"; 
+                    $barcoMedioX=$coordenadasX[$barcoMedioX];
+                    $newBarcoX=$coordenadasX[$newBarcoX];    
+
+                    echo "X: " .$barcoX;
+                    echo "<br>";
+                    echo "Y: " .$barcoY;
+                    echo "<br>";*/
+
 
                 echo "<table border=1>";
 
@@ -143,12 +273,15 @@
                     }
                     echo "</tr>";
                 }
-                echo "</table>";
+            echo "</table>";
              }
              
-           
+             //arraypush para rellenar el arreglo vacío
+              
             //formulario
-            echo '<form action="./BatallaNaval.php" method="POST">';
+            //var_dump($_POST);
+            //var_dump($c);
+            echo '<form action="BN.php" method="POST">';
             echo "<br><br>";
             echo "<label for='coordX'>";
                 echo "Coordenada en X (letra): <input type='text' name='coordX' required>";
@@ -157,26 +290,20 @@
                 echo "Coordenada en Y (numero) : <input type='text' name='coordY' required>";
             echo "</label>";
             echo "<button type='submit' name='disparo'>Dispara</button>";
-
+            echo "<input type='hidden' name='c' value=$c>";
             echo "<input type='hidden' name='barcoX' value='$barcoX'>";
             echo "<input type='hidden' name='barcoY' value='$barcoY'>";
-            
-
-            //arraypush para rellenar el arreglo vacío
-           /* $arreglo=array();
-            array_push($arreglo, $coordenadas)
-            foreach($arreglo as $llave => $valor)
-            {
-                echo $valor;
-                echo "<br>";
-            }*/
+            echo "<input type='hidden' name='barcoMedioY' value='$barcoMedioY'>";
+            echo "<input type='hidden' name='barcoMedioX' value='$barcoMedioX'>";
+            echo "<input type='hidden' name='newbarcoY' value='$newBarcoY'>";
+            echo "<input type='hidden' name='newbarcoX' value='$newBarcoX'>";
+            echo "<input type='hidden' name='orientacion' value='$randOrienta'>";
 
             echo '</form>';
+           
+           
             
-
-
-
-        ?>
-
+        ?>   
+    
 </body>
 </html>
