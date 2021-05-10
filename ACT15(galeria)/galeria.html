@@ -4,12 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de arte</title>
+    <title>Mi galeria</title>
 </head>
 <body>
     <form action="galeria.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="miarchivo"><br>
-        <input type="submit">
+        <fieldset style="width: 500px">
+            <legend> <h1>Registro nueva obra</h1></legend>
+                <label for="nombre">Ingresa el nombre de la obra: 
+                    <input type ="text" name="nombre" placeholder="Ingresa el nombre de la obra que deseas subir" required></input>
+                </label>
+                <br><br>
+                <label for="autor">Ingresa el nombre del autor: 
+                    <input type="text" name="autor" placeholder="Ingresa el nombre del autor"></input>
+                </label>
+                <br><br>
+                <label for="fecha">Ingresa el año de realizacion la obra: 
+                    <input type="text" name="anio" placeholder="Ingresa el año"></input>
+                </label>
+                <br><br>
+                <label for="img">Sube tu obra:
+                    <input type="file" name="img"></input>
+                </label>
+                <br><br>
+                <button type="submit">Agregar</button>
+        </fieldset>
     </form>
 </body>
 </html>
