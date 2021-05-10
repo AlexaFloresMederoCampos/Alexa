@@ -287,7 +287,7 @@
                         
                 if(isset($_POST["min"]))
                 {
-                    $minutosFaltantes=$horasFaltantes*60;
+                    $minutosFaltantes=($diasFaltantes*24)*60;
                     echo "<tr>";
                         echo "<td>";
                             echo "Minutos Faltantes: ";
