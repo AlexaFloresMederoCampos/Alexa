@@ -1,9 +1,9 @@
 <?php
-    if(isset($_POST["reloj"])) //Boton procesar
+    if(isset($_POST["reloj"])) 
     {
         echo "<table border=1>";
             echo "<thead>";
-                echo "<th colspan=2;><h2>Reloj mundial</h2></th>";
+                echo "<th colspan=2><h2>Reloj mundial</h2></th>";
             echo " </thead>";
             
             echo " <tbody>";
@@ -136,6 +136,16 @@
         $anio2Day=0;
         $mes2Day=0;
         $dia2Day=0;
+        $diasFinMes=0;
+        $diasMeses=0;
+        $diasCumpleAHoy=0;
+        $diasFaltantes=0;
+        $horasFaltantes=0;
+        $minutosFaltantes=0;
+        // correspondencia n dias en n mes 
+        //lugar    0     1    2    3   4     5    6    7    8    9   10   11   12
+        $diasAnio=["0","31","28","31","30","31","30","31","31","30","31","30","31"];
+           $meses=["0","01","02","03","04","05","06","07","08","09","10","11","12"];
 
 
             // guarda año enviado en variable
@@ -143,80 +153,164 @@
             {
                 $anio=$cadenaFecha[$contador];
                 $contador++;
-                echo $anio;
-                echo "<br>";
+                /*echo $anio;
+                echo "<br>";*/
             }
             // guarda mes enviado en variable
             if($contador==1)
             {
                 $mes=$cadenaFecha[$contador];
                 $contador++;
-                echo $mes;
-                echo "<br>";
+                /*echo $mes;
+                echo "<br>";*/
             }
             // guarda dia enviado en variable
             if($contador==2)
             {
                 $dia=$cadenaFecha[$contador];
                 $contador++;
-                echo $dia;
-                echo "<br>";
+                /*echo $dia;
+                echo "<br>";*/
             }
 
             $fechaHoy=date("Y-m-d");
-            echo $fechaHoy;
+
             $cadenaFecha2Day=explode("-", $fechaHoy);
-            var_dump ($cadenaFecha2Day);
 
             // guarda año actual en variable
             if($i==0)
             {
                 $anio2Day=$cadenaFecha2Day[$i];
                 $i++;
-                echo $anio2Day;
-                echo "<br>";
+                /*echo $anio2Day;
+                echo "<br>";*/
             }
             // guarda mes actual en variable
             if($i==1)
             {
                 $mes2Day=$cadenaFecha2Day[$i];
                 $i++;
-                echo $mes2Day;
-                echo "<br>";
+                /*echo $mes2Day;
+                echo "<br>";*/
             }
             // guarda dia actual en variable
             if($i==2)
             {
                 $dia2Day=$cadenaFecha2Day[$i];
                 $contador++;
-                echo $dia2Day;
-                echo "<br>";
+                /*echo $dia2Day;
+                echo "<br>";*/
             }
 
+            //guarda el mes del cumpleaños en numero
+            for($i=0; $i<count($meses); $i++)
+            {
+                if($meses[$i] == $mes)
+                {
+                    $mesCumple=$i;
+                    /*echo "mes " .$i; 
+                    echo "<br>";*/
+                }
+            }
         
+            // diferencia entre el dia de cumpleaños y el dia de hoy
+            // para que no salgan numeros negativos
+            if($dia2Day>$dia)
+            {
+                $diferenciaDias=$dia2Day-$dia;
+            }
+            elseif($dia>$dia2Day)
+            {
+                $diferenciaDias=$dia-$dia2Day;
+            }
+            +$diferenciaDias;
+            /*echo "diferencia de dia " .$diferenciaDias;
+            echo "<br>";*/
 
-            if(isset($_POST["dias"]))
+            // resta los dias totales que tiene el mes en el que cumplen años menos el dia del cumpleaños 
+            $diasFinMes=$diasAnio[$mesCumple]-$dia;
+            /*echo "dias fin de mes " .$diasFinMes;
+            echo "<br>";*/
+
+            // suma los dias totales de los meses entre el mes del cumpleaños y el mes de ese momento 
+            for($i=$mesCumple+1; $i<$mes2Day; $i++)
             {
-                echo "dias";
-                echo "<br>";
-            } 
-            if(isset($_POST["horas"]))
-            {
-                echo "horas";
-                echo "<br>";
+                $diasMeses+=$diasAnio[$i];
+                /*echo "diasMeses " .$diasMeses;
+                echo "<br>";*/
             }
+
+            // la idea es 365 dias del año - dias transcurridos desde el dia del cumpleaños... 
+            // a el dia de hoy = dias restantes hasta el proximo cumpleaños.
+            // suma los dias de los meses entre el mes de cumpleaños y el mes...
+            // actual mas los dias transcurridos de el mes actual mas los dias... 
+            // desde el dia del cumpleaños hasta el fin de ese mes.
+            $diasCumpleAHoy=$diasMeses+$dia2Day+$diasFinMes;
+            /*echo "dias cumple a hoy " .$diasCumpleAHoy;
+            echo "<br>";*/
+            $diasFaltantes=365-$diasCumpleAHoy;
+            /*echo "dias faltantes" .$diasFaltantes;*/
+        
+            echo "<table border=1>";
+            echo "<thead>";
+                echo "<tr>";
+                    echo "<th>Cumpleaños</th>";
+                    echo "<th>".$fechaIntroducida."</th>";
+                echo "</tr>";
+            echo " </thead>";
+            
+            echo " <tbody>";
+                if(isset($_POST["dias"]))
+                {
+                    echo "<tr>";
+                        echo "<td>";
+                            echo "Dias Faltantes: ";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $diasFaltantes;
+                        echo "</td>";
+                    echo "<tr>";
+
+                } 
+                if(isset($_POST["horas"]))
+                {
+                    $horasFaltantes=$diasFaltantes*24;
+                    echo "<tr>";
+                        echo "<td>";
+                            echo "Horas Faltantes: ";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $horasFaltantes;
+                        echo "</td>";
+                    echo "<tr>";
+                }
+                        
+                if(isset($_POST["min"]))
+                {
+                    $minutosFaltantes=$horasFaltantes*60;
+                    echo "<tr>";
+                        echo "<td>";
+                            echo "Minutos Faltantes: ";
+                        echo "</td>";
+                        echo "<td>";
+                            echo $minutosFaltantes;
+                        echo "</td>";
+                    echo "<tr>";
+                }
                     
-            if(isset($_POST["min"]))
-            {
-                echo "min";
-                echo "<br>";
-            }
-                
-            if(isset($_POST["finde"]))
-            {
-                echo "finde";
-                echo "<br>";
-            }
+                if(isset($_POST["finde"]))
+                {
+                    echo "<tr>";
+                        echo "<td>";
+                            echo "Fin de semana";
+                        echo "</td>";
+                        echo "<td>";
+                            echo "No le supe :(";
+                        echo "</d>";
+                    echo "<tr>";
+                }
+            echo " </tbody>";
+            
     }
 
 ?>
